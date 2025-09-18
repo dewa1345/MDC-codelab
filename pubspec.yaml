@@ -23,6 +23,17 @@ flutter:
   assets:
     - assets/pingu.png
     - assets/diamond.png
+    - assets/jantung.png
+    - assets/hati.png
+    - assets/mata.png
+    - assets/usus.png
+    - assets/paru.png
+    - assets/limpa.png
+    - assets/otak.png
+    - assets/botol.png
+    - assets/pancreas.png
+    - assets/ginjal.png
+    - assets/hplaury.png
     # TODO: Add slanted menu asset (104)
     - packages/shrine_images/0-0.jpg
     - packages/shrine_images/1-0.jpg

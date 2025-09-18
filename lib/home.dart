@@ -15,22 +15,137 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  
   const HomePage({Key? key}) : super(key: key);
 
+
+    static List<String> imagePaths = [
+    'assets/usus.png',
+    'assets/mata.png',
+    'assets/jantung.png',
+    'assets/hati.png',
+    'assets/paru.png',
+    'assets/otak.png',
+    'assets/botol.png',
+    'assets/pancreas.png',
+    'assets/ginjal.png',
+    'assets/hplaury.png',
+    'assets/limpa.png',
+
+  ];
+
+      static List<String> titles = [
+    'Usus Laury 1.5M',
+    'Mata Laury x2',
+    'Jantung Laury',
+    'Hati Laury',
+    'Paru-Paru Laury',
+    'Otak Laury',
+    'Botol Laury',
+    'Pancreas Laury',
+    'Ginjal Laury',
+    'HP Laury S24 Ultra',
+    'Limpa Laury',
+  ];
+
+    static List<String> texts = [
+    '10.000.000',
+    'Rp6.000.000',
+    'Rp1.000',
+    'Rp10.000.000.000.000',
+    'Rp100.000.000',
+    'Rp5.000.000',
+    'Rp50.000',
+    'Rp2.000.000',
+    'Rp3.000.000',
+    'Rp15.000.000',
+    'Rp500.000',
+  ];
   // TODO: Make a collection of cards (102)
+  
+  List<Card> _buildGridCards(int count) {
+  List<Card> cards = List.generate(
+    count,
+    (int index) {
+      return Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 18.0 / 11.0,
+              child: Image.asset(imagePaths[index],
+              fit: BoxFit.fitWidth,
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(titles[index]),
+                  SizedBox(height: 8.0),
+                  Text(texts[index]),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+  return cards;
+}
   // TODO: Add a variable for Category (104)
   @override
   Widget build(BuildContext context) {
     // TODO: Return an AsymmetricView (104)
     // TODO: Pass Category variable to AsymmetricView (104)
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 233, 161, 17) ,
       // TODO: Add app bar (102)
-      // TODO: Add a grid view (102)
-      body: Center(
-        child: Text('You did it!'),
+      appBar: AppBar(
+        // TODO: Add buttons and title (102)
+        title: const Text('PINGU'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            semanticLabel: 'menu',
+          ),
+          onPressed: () {
+            print('Menu button');
+          },
+        ),
+        // TODO: Add trailing buttons (102)
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              semanticLabel: 'search',
+            ),
+            onPressed: () {
+              print('Search button');
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.tune,
+              semanticLabel: 'filter',
+            ),
+            onPressed: () {
+              print('Filter button');
+            },
+          ),
+        ],
       ),
-      // TODO: Set resizeToAvoidBottomInset (101)
-      resizeToAvoidBottomInset: false,
+
+      // TODO: Add a grid view (102)
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: const EdgeInsets.all(16.0),
+        childAspectRatio: 8.0 / 9.0,
+        children: _buildGridCards(10),
+      ),
     );
   }
 }
