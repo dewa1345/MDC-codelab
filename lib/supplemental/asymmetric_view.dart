@@ -14,20 +14,16 @@
 
 import 'package:flutter/material.dart';
 
-class AsymmetricView extends StatelessWidget {
-  final List<String> titles;
-  final List<String> texts;
-  final List<String> imagePaths;
+import '../model/product.dart';
+import 'product_columns.dart';
 
-  const AsymmetricView({
-    Key? key,
-    required this.titles,
-    required this.texts,
-    required this.imagePaths,
-  }) : super(key: key);
+class AsymmetricView extends StatelessWidget {
+  final List<Product> products;
+
+  const AsymmetricView({Key? key, required this.products}) : super(key: key);
 
   List<Widget> _buildColumns(BuildContext context) {
-    if (titles.isEmpty) {
+    if (products.isEmpty) {
       return <Container>[];
     }
 
@@ -39,22 +35,22 @@ class AsymmetricView extends StatelessWidget {
     /// some kinda awkward math so we use _evenCasesIndex and _oddCasesIndex as
     /// helpers for creating the index of the product list that will correspond
     /// to the index of the list of columns.
-    return List.generate(_listItemCount(titles.length), (int index) {
+    return List.generate(_listItemCount(products.length), (int index) {
       double width = .59 * MediaQuery.of(context).size.width;
       Widget column;
       if (index % 2 == 0) {
         /// Even cases
         int bottom = _evenCasesIndex(index);
         column = TwoProductCardColumn(
-            bottom: _buildProductCard(bottom),
-            top: titles.length - 1 >= bottom + 1
-                ? _buildProductCard(bottom + 1)
+            bottom: products[bottom],
+            top: products.length - 1 >= bottom + 1
+                ? products[bottom + 1]
                 : null);
         width += 32.0;
       } else {
         /// Odd cases
         column = OneProductCardColumn(
-          product: _buildProductCard(_oddCasesIndex(index)),
+          product: products[_oddCasesIndex(index)],
         );
       }
       return SizedBox(
@@ -65,38 +61,6 @@ class AsymmetricView extends StatelessWidget {
         ),
       );
     }).toList();
-  }
-
-  Widget _buildProductCard(int index) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(
-          imagePaths[index],
-          fit: BoxFit.contain,
-          height: 200.0,
-          width: double.infinity,
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          titles[index],
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0,
-          ),
-        ),
-        const SizedBox(height: 4.0),
-        Text(
-          texts[index],
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.black54,
-            fontSize: 14.0,
-          ),
-        ),
-      ],
-    );
   }
 
   int _evenCasesIndex(int input) {
@@ -127,37 +91,5 @@ class AsymmetricView extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0.0, 34.0, 16.0, 44.0),
       children: _buildColumns(context),
     );
-  }
-}
-
-class TwoProductCardColumn extends StatelessWidget {
-  final Widget? top;
-  final Widget? bottom;
-
-  const TwoProductCardColumn({Key? key, this.top, this.bottom})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (top != null) ...[
-          Expanded(child: top!),
-          const SizedBox(height: 8.0),
-        ],
-        if (bottom != null) Expanded(child: bottom!),
-      ],
-    );
-  }
-}
-
-class OneProductCardColumn extends StatelessWidget {
-  final Widget product;
-
-  const OneProductCardColumn({Key? key, required this.product}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(child: product);
   }
 }

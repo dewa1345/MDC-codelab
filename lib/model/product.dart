@@ -17,6 +17,11 @@ enum Category {
   accessories,
   clothing,
   home,
+  manusia,
+  hewan,
+  miscellaneous
+  
+  
 }
 
 class Product {
@@ -34,8 +39,8 @@ class Product {
   final String name;
   final int price;
 
-  String get assetName => '$id-0.jpg';
-  String get assetPackage => 'shrine_images';
+  // Returns the asset path for the product image in the assets/ folder
+  String get assetName => 'assets/$id-0.png';
 
   @override
   String toString() => "$name (id=$id)";
