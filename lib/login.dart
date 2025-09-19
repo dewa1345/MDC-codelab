@@ -23,9 +23,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // TODO: Add text editing controllers (101)
-    final _usernameController = TextEditingController();
-    
-    final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
+
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +39,10 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Image.asset('assets/pingu.png'),
                 const SizedBox(height: 16.0),
-                const Text('PINGU'),
+                Text(
+                  'PINGU',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
               ],
             ),
 // TODO: Add TextField widgets (101)
@@ -47,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
-                filled: true,
+                // remove filled: true,
                 labelText: 'Username',
               ),
             ),
@@ -57,15 +60,14 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _passwordController,
               decoration: const InputDecoration(
-                filled: true,
+                // remove filled: true,
                 labelText: 'Password',
               ),
               obscureText: true,
             ),
-            // TODO: Remove filled: true values (103)
             // TODO: Add TextField widgets (101)
             // TODO: Add button bar (101)
-            // TODO: Add button bar (101)
+
             OverflowBar(
               alignment: MainAxisAlignment.end,
               // TODO: Add a beveled rectangular border to CANCEL (103)
@@ -75,9 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text('CANCEL'),
                   onPressed: () {
                     // TODO: Clear the text fields (101)
-                        _usernameController.clear();
-                        _passwordController.clear();
+                    _usernameController.clear();
+                    _passwordController.clear();
                   },
+                  style: TextButton.styleFrom(
+                    // primary itu deprecated diganti foregroundcolor thx ai
+                    foregroundColor: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
                 // TODO: Add an elevation to NEXT (103)
                 // TODO: Add a beveled rectangular border to NEXT (103)
@@ -87,8 +93,16 @@ class _LoginPageState extends State<LoginPage> {
                     // TODO: Show the next page (101)
                     Navigator.pop(context);
                   },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    elevation: 8.0,
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                    ),  
+                  ),
+                  // TODO: Add buttons (101)
                 ),
-                // TODO: Add buttons (101)
               ],
             ),
           ],

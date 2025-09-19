@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'supplemental/asymmetric_view.dart';
 
 class HomePage extends StatelessWidget {
   
@@ -20,55 +21,57 @@ class HomePage extends StatelessWidget {
 
 
     static List<String> imagePaths = [
-    'assets/usus.png',
-    'assets/mata.png',
+    'assets/klee1.png',
+    'assets/femboy.png',
     'assets/jantung.png',
     'assets/hati.png',
-    'assets/paru.png',
+    'assets/rasis.png',
     'assets/otak.png',
     'assets/botol.png',
     'assets/pancreas.png',
     'assets/ginjal.png',
     'assets/hplaury.png',
-    'assets/limpa.png',
+    'assets/iwak.png',
 
   ];
 
       static List<String> titles = [
-    'Usus Laury 1.5M',
-    'Mata Laury x2',
+    'Bocil Meledak',
+    'Jenis Kelamin Ketiga',
     'Jantung Laury',
     'Hati Laury',
-    'Paru-Paru Laury',
+    'Bocil Rasis',
     'Otak Laury',
     'Botol Laury',
     'Pancreas Laury',
     'Ginjal Laury',
     'HP Laury S24 Ultra',
-    'Limpa Laury',
+    'IWAK',
   ];
 
     static List<String> texts = [
-    '10.000.000',
-    'Rp6.000.000',
+    'Rp10.000.000',
+    'Rp120.000.000',
     'Rp1.000',
     'Rp10.000.000.000.000',
-    'Rp100.000.000',
+    'Rp100',
     'Rp5.000.000',
     'Rp50.000',
     'Rp2.000.000',
     'Rp3.000.000',
     'Rp15.000.000',
-    'Rp500.000',
+    'Rp5.000',
   ];
   // TODO: Make a collection of cards (102)
-  
-  List<Card> _buildGridCards(int count) {
+
+  List<Card> _buildGridCards(BuildContext context, int count) {
   List<Card> cards = List.generate(
     count,
     (int index) {
       return Card(
         clipBehavior: Clip.antiAlias,
+        // TODO: Adjust card heights (103)
+        elevation: 0.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -78,14 +81,25 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.fitWidth,
               )
             ),
-            Padding(
+            Padding( 
               padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(titles[index]),
-                  SizedBox(height: 8.0),
-                  Text(texts[index]),
+                  Text(
+                    titles[index],
+                    style: Theme.of(context).textTheme.labelLarge,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+
+                  const SizedBox(height: 8.0),
+                  Text(
+                    texts[index],
+                    style: Theme.of(context).textTheme.bodySmall,
+                  )
                 ],
               ),
             ),
@@ -105,6 +119,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 233, 161, 17) ,
       // TODO: Add app bar (102)
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 219, 180, 53), // Change this to your desired color
         // TODO: Add buttons and title (102)
         title: const Text('PINGU'),
         leading: IconButton(
@@ -140,12 +155,12 @@ class HomePage extends StatelessWidget {
       ),
 
       // TODO: Add a grid view (102)
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: const EdgeInsets.all(16.0),
-        childAspectRatio: 8.0 / 9.0,
-        children: _buildGridCards(10),
+      body: AsymmetricView(
+        titles: titles,
+        texts: texts,
+        imagePaths: imagePaths,
       ),
     );
   }
 }
+
